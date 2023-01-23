@@ -9,6 +9,7 @@
 
 abstract class AbstractFactory {
   AbstractProductA createProductA();
+  AbstractProductB createProductB();
 }
 
 /*
@@ -22,6 +23,27 @@ class ConcreteFactory1 implements AbstractFactory {
   createProductA() {
     return ConcreteProductA1();
   }
+
+  @override
+  AbstractProductB createProductB() {
+    return ConcreteProductB1();
+  }
+}
+
+/*
+ Each Concrete Factory has a corresponding product variant.
+*/
+class ConcreteFactory2 implements AbstractFactory {
+  @override
+  AbstractProductA createProductA() {
+    return ConcreteProductA2();
+  }
+
+  @override
+  AbstractProductB createProductB() {
+    return ConcreteProductB2();
+  }
+  
 }
 
 /*
@@ -42,6 +64,72 @@ class ConcreteProductA1 implements AbstractProductA {
   }
 }
 
+class ConcreteProductA2 implements AbstractProductA {
+  @override
+  String usefulFunctionA() {
+    return 'The result of the product A2.';
+  }
+}
+
+/*
+  Here's the the base interface of another product. All products can interact
+  with each other, but proper interaction is possible only between products of
+  the same concrete variant.
+*/
+abstract class AbstractProductB {
+  /*
+    Product B is able to do its own thing...
+  */
+  String usefulFunctionB();
+
+  /*
+    ...but it also can collaborate with the ProductA.
+  
+    The Abstract Factory makes sure that all products it creates are of the
+    same variant and thus, compatible.
+  */
+  String anotherUsefulFunctionB(AbstractProductA collaborator);
+}
+
+/*
+ These Concrete Products are created by corresponding Concrete Factories.
+*/
+class ConcreteProductB1 implements AbstractProductB {
+  @override
+  String usefulFunctionB() {
+    return 'The result of the product B1.';
+  }
+
+  /*
+    The variant, Product B1, is only able to work correctly with the variant,
+    Product A1. Nevertheless, it accepts any instance of AbstractProductA as
+    an argument.
+  */
+  @override
+  String anotherUsefulFunctionB(AbstractProductA collaborator) {
+    final result = collaborator.usefulFunctionA();
+    return 'The result of the B1 collaborating with the ($result)';
+  }
+}
+
+class ConcreteProductB2 implements AbstractProductB {
+  @override
+  String usefulFunctionB() {
+    return 'The result of the product B2.';
+  }
+
+  /*
+    The variant, Product B2, is only able to work correctly with the variant,
+    Product A2. Nevertheless, it accepts any instance of AbstractProductA as
+    an argument.
+  */
+  @override
+  String anotherUsefulFunctionB(AbstractProductA collaborator) {
+    final result = collaborator.usefulFunctionA();
+    return 'The result of the B2 collaborating with the ($result)';
+  }
+}
+
 /*
  The client code works with factories and products only through abstract
  types: AbstractFactory and AbstractProduct. This lets you pass any factory or
@@ -49,8 +137,10 @@ class ConcreteProductA1 implements AbstractProductA {
 */
 void clientCode(AbstractFactory factory) {
   final productA = factory.createProductA();
+  final productB = factory.createProductB();
   
-  print(productA.usefulFunctionA());
+  print(productB.usefulFunctionB());
+  print(productB.anotherUsefulFunctionB(productA));
 }
 
 /*
@@ -59,4 +149,9 @@ void clientCode(AbstractFactory factory) {
 void main(List<String> arguments) {
   print('Client: Testing client code with the first factory type...');
   clientCode(ConcreteFactory1());
+
+  print('');
+  
+  print('Client: Testing the same client code with the second factory type...');
+  clientCode(ConcreteFactory2());
 }
