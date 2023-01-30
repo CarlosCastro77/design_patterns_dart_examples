@@ -60,14 +60,14 @@ abstract class AbstractProductA {
 class ConcreteProductA1 implements AbstractProductA {
   @override
   String usefulFunctionA() {
-    return 'The result of the product A1.';
+    return "The result of the product A1.";
   }
 }
 
 class ConcreteProductA2 implements AbstractProductA {
   @override
   String usefulFunctionA() {
-    return 'The result of the product A2.';
+    return "The result of the product A2.";
   }
 }
 
@@ -97,7 +97,7 @@ abstract class AbstractProductB {
 class ConcreteProductB1 implements AbstractProductB {
   @override
   String usefulFunctionB() {
-    return 'The result of the product B1.';
+    return "The result of the product B1.";
   }
 
   /*
@@ -108,14 +108,14 @@ class ConcreteProductB1 implements AbstractProductB {
   @override
   String anotherUsefulFunctionB(AbstractProductA collaborator) {
     final result = collaborator.usefulFunctionA();
-    return 'The result of the B1 collaborating with the ($result)';
+    return "The result of the B1 collaborating with the ($result)";
   }
 }
 
 class ConcreteProductB2 implements AbstractProductB {
   @override
   String usefulFunctionB() {
-    return 'The result of the product B2.';
+    return "The result of the product B2.";
   }
 
   /*
@@ -126,7 +126,7 @@ class ConcreteProductB2 implements AbstractProductB {
   @override
   String anotherUsefulFunctionB(AbstractProductA collaborator) {
     final result = collaborator.usefulFunctionA();
-    return 'The result of the B2 collaborating with the ($result)';
+    return "The result of the B2 collaborating with the ($result)";
   }
 }
 
@@ -147,11 +147,11 @@ void clientCode(AbstractFactory factory) {
  The client code can work with any concrete factory class.
 */
 void main(List<String> arguments) {
-  print('Client: Testing client code with the first factory type...');
+  print("Client: Testing client code with the first factory type...");
   clientCode(ConcreteFactory1());
 
-  print('');
+  print("");
   
-  print('Client: Testing the same client code with the second factory type...');
+  print("Client: Testing the same client code with the second factory type...");
   clientCode(ConcreteFactory2());
 }

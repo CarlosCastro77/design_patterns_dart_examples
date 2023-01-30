@@ -60,14 +60,14 @@ abstract class Product {
 class ConcreteProduct1 implements Product {
   @override
   String operation() {
-    return '{Result of the ConcreteProduct1}';
+    return "{Result of the ConcreteProduct1}";
   }
 }
 
 class ConcreteProduct2 implements Product {
   @override
   String operation() {
-    return '{Result of the ConcreteProduct2}';
+    return "{Result of the ConcreteProduct2}";
   }
 }
 
@@ -86,11 +86,11 @@ void clientCode(Creator creator) {
  environment.
 */
 void main(List<String> arguments) {
-  print('App: Launched with the ConcreteCreator1.');
+  print("App: Launched with the ConcreteCreator1.");
   clientCode(ConcreteCreator1());
-  print('');
+  print("");
 
-  print('App: Launched with the ConcreteCreator2.');
+  print("App: Launched with the ConcreteCreator2.");
   clientCode(ConcreteCreator2());
-  print('');
+  print("");
 }
