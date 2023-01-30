@@ -118,6 +118,12 @@ void clientCode(Director director) {
   print("Standard full featured product:");
   director.buildFullFeaturedProduct();
   builder.getProduct().listParts();
+
+  // Remember, the Builder pattern can be used without a Director class.
+  print("Custom product:");
+  builder.producePartA();
+  builder.producePartC();
+  builder.getProduct().listParts();
 }
 
 void main(List<String> arguments) {
